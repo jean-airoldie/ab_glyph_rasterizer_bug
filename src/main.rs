@@ -1,6 +1,10 @@
-use ab_glyph_rasterizer::{Rasterizer, Point};
+use ab_glyph_rasterizer::{Point, Rasterizer};
 
-use std::{str::{self, FromStr}, io, path::PathBuf};
+use std::{
+    io,
+    path::PathBuf,
+    str::{self, FromStr},
+};
 
 fn main() {
     let mut rasterizer = Rasterizer::new(0, 0);
@@ -59,15 +63,16 @@ fn serialize_to_rgba(rasterizer: &Rasterizer) -> Vec<u8> {
 }
 
 fn write_png(entry: &walkdir::DirEntry, rasterizer: &Rasterizer) {
-    let path = PathBuf::from("glyphs").join(entry.path().file_stem().unwrap()).with_extension("png");
+    let path = PathBuf::from("glyphs")
+        .join(entry.path().file_stem().unwrap())
+        .with_extension("png");
     let file = std::fs::File::create(path).unwrap();
     let mut file = io::BufWriter::new(file);
 
     let rgba = serialize_to_rgba(rasterizer);
 
     let (width, height) = rasterizer.dimensions();
-    let mut encoder =
-        png::Encoder::new(&mut file, width as u32, height as u32);
+    let mut encoder = png::Encoder::new(&mut file, width as u32, height as u32);
     encoder.set_color(png::ColorType::Rgba);
     encoder.set_depth(png::BitDepth::Eight);
     encoder.set_source_gamma(png::ScaledFloat::new(1.0));
