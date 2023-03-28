@@ -53,10 +53,11 @@ fn serialize_to_rgba(rasterizer: &Rasterizer) -> Vec<u8> {
     let mut rgba = Vec::<u8>::with_capacity(width * height * 4);
 
     rasterizer.for_each_pixel(|_, a| {
-        let b = (a * 255.0).round().min(255.0) as u8;
-        for _ in 0..4 {
-            rgba.push(b);
+        for _ in 0..3 {
+            rgba.push(255);
         }
+        let b = (a * 255.0).round().min(255.0) as u8;
+        rgba.push(b);
     });
 
     rgba
