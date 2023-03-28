@@ -14,4 +14,8 @@ of the instructions can be found at the `glyphs/` directory.
 The naming structure is the following: `<font_name>_<character>_<size_in_points>.txt`.
 
 In this example, the `m` and `t` characters are defective while
-the `o` and `n` are not.
+the `o` and `n` are not. 
+
+Note that the rasterizer is resized to be wider than necessary
+to make the smudging effect more obvious, since it extends to the
+entirely of the rasterizer's width.
